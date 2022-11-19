@@ -1,0 +1,35 @@
+.count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  /*border: 3px solid #e5e5e5;*/
+  box-shadow: 1px 1px 40px rgba(0, 0, 0, .1);
+  border-radius: 20px;
+}
+
+.number {
+  font-size: 140px;
+  color: #363636;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  padding: 10px 40px;
+  cursor: pointer;
+  background: #dfdfdf;
+  transition: .4s all;
+}
+
+.button:hover {
+  background: #d4d4d4;
+}
