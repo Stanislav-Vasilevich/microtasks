@@ -1,0 +1,16 @@
+.table {
+  width: 300px;
+  background: #e5e5e5;
+  padding: 0;
+  margin: 0 0 40px;
+}
+
+.tr {
+  text-align: center;
+}
+
+.item {
+  min-width: 100px;
+  outline: .5px solid grey;
+  padding: 5px;
+}
