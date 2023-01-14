@@ -22,7 +22,7 @@ const Filter = (props: PropsType) => {
       <ul className={s.list}>
         {props.filter.map((i, index) => {
           return (
-            <li className={s.item}>{`${++index}. ${i.value} ${i.banknots}`}</li>
+            <li className={s.item} key={index}>{`${++index}. ${i.value} ${i.banknots}`}</li>
           )
         })}
       </ul>

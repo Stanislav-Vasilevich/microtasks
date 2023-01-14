@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import Cars from './components/Cars/Cars';
 import Button from './components/Button/Button';
 import Count from './components/Count/Count';
 import Filter from './components/Filter/Filter';
+import FullInput from "./components/FullInput/FullInput";
 
 const topCars = [
   {manufacturer:'BMW', model:'m5cs'},
@@ -33,6 +34,12 @@ function App() {
 
   const [valueFilter, setValueFilter] = useState('all');
 
+	const [messages, setMessages] = useState([
+		{id: 1, text: 'Hello friend'},
+		{id: 2, text: 'How are you?'},
+		{id: 3, text: 'Where are you?'}
+	]);
+
   const actionSubscribe = (value: string) => {
     console.log(value);
   }
@@ -58,6 +65,14 @@ function App() {
     setValueFilter(value);
   }
 
+	const onClickAddMessage = (message: string) => {
+		const newMessage = {
+			id: 4,
+			text: message
+		}
+		setMessages([newMessage, ...messages]);
+	}
+
   return (
     <div className={'container'}>
       <div className={'cars'}>
@@ -74,6 +89,17 @@ function App() {
       <div className={'filter'}>
         <Filter filter={currentFilterValue} filterMoney={filterMoney}/>
       </div>
+
+			<div className={'messages'}>
+				<FullInput
+					onClickAddMessage={onClickAddMessage}
+				/>
+				<ul>
+					{messages.map(i => {
+						return <li key={i.id}>{i.text}</li>
+					})}
+				</ul>
+			</div>
     </div>
   );
 }
