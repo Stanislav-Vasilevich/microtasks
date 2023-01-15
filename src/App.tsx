@@ -5,6 +5,7 @@ import Button from './components/Button/Button';
 import Count from './components/Count/Count';
 import Filter from './components/Filter/Filter';
 import FullInput from "./components/FullInput/FullInput";
+import Input from "./components/Input/Input";
 
 const topCars = [
   {manufacturer:'BMW', model:'m5cs'},
@@ -40,6 +41,8 @@ function App() {
 		{id: 3, text: 'Where are you?'}
 	]);
 
+	const [input, setInput] = useState('');
+
   const actionSubscribe = (value: string) => {
     console.log(value);
   }
@@ -73,6 +76,19 @@ function App() {
 		setMessages([newMessage, ...messages]);
 	}
 
+	const getInputValue = (message: string) => {
+		setInput(message);
+	}
+
+	const onClickAddMessageButton = () => {
+		const newMessage = {
+			id: 5,
+			text: input
+		}
+		setMessages([newMessage, ...messages]);
+		setInput('');
+	}
+
   return (
     <div className={'container'}>
       <div className={'cars'}>
@@ -94,6 +110,8 @@ function App() {
 				<FullInput
 					onClickAddMessage={onClickAddMessage}
 				/>
+				<Input getInputValue={getInputValue} value={input}/>
+				<Button text={'+'} action={onClickAddMessageButton}/>
 				<ul>
 					{messages.map(i => {
 						return <li key={i.id}>{i.text}</li>
