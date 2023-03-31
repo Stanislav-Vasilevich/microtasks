@@ -42,6 +42,8 @@ function App() {
   let [todoLists, setTodoLists] = useState<Array<todoListsType>>([
     {id: todolistID1, title: 'What to learn', filter: 'all'},
     {id: todolistID2, title: 'What to buy', filter: 'all'},
+    {id: todolistID2, title: 'What to buy', filter: 'all'},
+    {id: todolistID2, title: 'What to buy', filter: 'all'},
   ]);
   let [tasks, setTasks] = useState<tasksType>({
     [todolistID1]: [
@@ -126,12 +128,9 @@ function App() {
   }
 
   function removeTask(todolistId: string, TaskId: string) {
-    console.log('todolistId: ', todolistId);
-    console.log('TaskId: ', TaskId);
     let filteredTasks = tasks[todolistId].filter(t => t.id != TaskId);
-    // console.log('filteredTasks: ', filteredTasks);
 
-    setTasks({...tasks, filteredTasks});
+    setTasks({...tasks, [todolistId]: filteredTasks});
   }
 
   function changeTaskStatus(todolistId: string, taskId: string, isDone: boolean) {
@@ -146,66 +145,77 @@ function App() {
   return (
     <div className={'container'}>
       {/* Занятия понедельник */}
-      <div className={'cars'}>
-        <Cars cars={topCars}/>
-      </div>
-      <div className={'buttons'}>
-        <Button text={'subscribe'} action={() => actionSubscribe('subscribe')}/>
-        <Button text={'remove'} action={() => actionSubscribe('remove')}/>
-      </div>
-      <div className={'count'}>
-        <Count returnStartCount={returnStartCount} count={count} newCountValue={newCountValue}/>
-      </div>
-      <div className={'filter'}>
-        <Filter filter={currentFilterValue} filterMoney={filterMoney}/>
-      </div>
-      <div className={'messages'}>
-        <FullInput
-          onClickAddMessage={onClickAddMessage}
-        />
-        <Input getInputValue={getInputValue} value={input}/>
-        <Button text={'+'} action={onClickAddMessageButton}/>
-        <ul>
-          {messages.map(i => {
-            return <li key={i.id}>{i.text}</li>
-          })}
-        </ul>
-      </div>
+      <section className={'section'}>
+        <h1 className={'title_main'}>Micro tasks</h1>
+        <h2 className={'title title_default'}>Понедельник</h2>
+        <div className={'cars'}>
+          <Cars cars={topCars}/>
+        </div>
+        <div className={'buttons'}>
+          <Button text={'subscribe'} action={() => actionSubscribe('subscribe')}/>
+          <Button text={'remove'} action={() => actionSubscribe('remove')}/>
+        </div>
+        <div className={'count'}>
+          <Count returnStartCount={returnStartCount} count={count} newCountValue={newCountValue}/>
+        </div>
+        <div className={'filter'}>
+          <Filter filter={currentFilterValue} filterMoney={filterMoney}/>
+        </div>
+        <div className={'messages'}>
+          <FullInput
+            onClickAddMessage={onClickAddMessage}
+          />
+          <Input getInputValue={getInputValue} value={input}/>
+          <Button text={'+'} action={onClickAddMessageButton}/>
+          <ul>
+            {messages.map(i => {
+              return <li key={i.id}>{i.text}</li>
+            })}
+          </ul>
+        </div>
+      </section>
+
       {/* Занятия вторник */}
-      {
-        todoLists.map(t => {
-          let tasksForTodolist = tasks[t.id];
+      <section className={'section'}>
+        <h2 className={'title'}>Вторник</h2>
+        <div className="row">
+          {
+            todoLists.map(t => {
+              let tasksForTodolist = tasks[t.id];
 
-          if (t.filter === 'active') {
-            tasksForTodolist = tasks[t.id].filter(t => !t.isDone)
+              if (t.filter === 'active') {
+                tasksForTodolist = tasks[t.id].filter(t => !t.isDone);
+              }
+              if (t.filter === 'completed') {
+                tasksForTodolist = tasks[t.id].filter(t => t.isDone);
+              }
+
+              function changeFilter(todoListId: string, value: FilterValuesType) {
+                const todoList = todoLists.find(t => t.id === todoListId);
+                if(todoList) {
+                  todoList.filter = value;
+                }
+
+                setTodoLists([...todoLists]);
+              }
+
+              return (
+                <Todolist
+                  key={t.id}
+                  todoListId = {t.id}
+                  title={t.title}
+                  filter={t.filter}
+                  tasks={tasksForTodolist}
+                  removeTask={removeTask}
+                  addTask={addTask}
+                  changeTaskStatus={changeTaskStatus}
+                  changeFilter={changeFilter}
+                />
+              )
+            })
           }
-          if (t.filter === 'completed') {
-            tasksForTodolist = tasks[t.id].filter(t => t.isDone)
-          }
-
-          function changeFilter(todoListId: string, value: FilterValuesType) {
-            const todoList = todoLists.find(t => t.id === todoListId);
-            if(todoList) {
-              todoList.filter = value;
-            }
-
-            setTodoLists([...todoLists]);
-          }
-
-          return (
-            <Todolist
-              todoListId = {t.id}
-              title={t.title}
-              filter={t.filter}
-              tasks={tasks[t.id]}
-              removeTask={removeTask}
-              addTask={addTask}
-              changeTaskStatus={changeTaskStatus}
-              changeFilter={changeFilter}
-            />
-          )
-        })
-      }
+        </div>
+      </section>
     </div>
   );
 }

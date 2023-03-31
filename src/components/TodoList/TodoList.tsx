@@ -47,7 +47,6 @@ export function Todolist(props: PropsType) {
   const onActiveClickHandler = () => props.changeFilter(props.todoListId, "active");
   const onCompletedClickHandler = () => props.changeFilter(props.todoListId, "completed");
 
-
   return <div>
     <h3>{props.title}</h3>
     <div>
@@ -62,7 +61,7 @@ export function Todolist(props: PropsType) {
     <ul>
       {
         props.tasks.map(t => {
-          const onClickHandler = () => props.removeTask(props.todoListId, t.id)
+          const onClickHandler = () => props.removeTask(props.todoListId, t.id);
           const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
             props.changeTaskStatus(props.todoListId, t.id, e.currentTarget.checked);
           }

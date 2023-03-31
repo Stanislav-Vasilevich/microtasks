@@ -1,10 +1,25 @@
 .container {
+  width: 1200px;
+  padding: 0;
+  margin: 20px auto 0;
+}
+
+.section {
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1200px;
-  padding: 100px 0 0 0;
-  margin: 0 auto;
+  border-radius: 50px;
+  box-shadow: 1px 1px 40px rgba(0, 0, 0, .1);
+  padding: 0 20px 50px;
+  margin: 0 0 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px 50px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .cars, .buttons, .count, .messages {
@@ -14,4 +29,35 @@
 .messages {
 	background: #f2f2f2;
 	padding: 20px;
+  margin: 0;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  background: #ffe0aa;
+  border-radius: 50px 50px 0 0;
+  padding: 20px;
+  margin: 0 0 20px;
+}
+
+.title_main {
+  border-radius: 50px 50px 0 0;
+  width: 100%;
+  text-align: center;
+  background: #aaffad;
+  padding: 20px;
+  margin: 0;
+}
+
+.title_default {
+  border-radius: 0;
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 20px;
+  }
 }
